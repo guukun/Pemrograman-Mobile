@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobileproject/pages/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final _globalKey = GlobalKey<FormState>();
+    final globalKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
@@ -52,7 +53,7 @@ class LoginPage extends StatelessWidget {
 
               //form
               Form(
-                key: GlobalKey(),
+                key: globalKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -60,6 +61,7 @@ class LoginPage extends StatelessWidget {
                         if (value == null || value.isEmpty) {
                           return 'Username tidak boleh kosong';
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.person),
@@ -76,6 +78,7 @@ class LoginPage extends StatelessWidget {
                         if (value == null || value.isEmpty) {
                           return 'Password tidak boleh kosong';
                         }
+                        return null;
                       },
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.password),
@@ -100,7 +103,12 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  if (_globalKey.currentState!.validate()) ;
+                  if (globalKey.currentState!.validate()) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  }
                 },
                 child: Text("Login", style: TextStyle(color: Colors.white)),
               ),
